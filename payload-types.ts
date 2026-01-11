@@ -89,8 +89,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    profile: Profile;
+  };
+  globalsSelect: {
+    profile: ProfileSelect<false> | ProfileSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -148,7 +152,7 @@ export interface User {
  */
 export interface Media {
   id: number;
-  alt: string;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -160,6 +164,24 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -169,6 +191,16 @@ export interface Painting {
   id: number;
   title: string;
   price?: number | null;
+  medium?: string | null;
+  dimensions?: string | null;
+  description?: string | null;
+  buyLink?: string | null;
+  gallery?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -308,6 +340,30 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -316,6 +372,16 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PaintingsSelect<T extends boolean = true> {
   title?: T;
   price?: T;
+  medium?: T;
+  dimensions?: T;
+  description?: T;
+  buyLink?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -381,6 +447,40 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "profile".
+ */
+export interface Profile {
+  id: number;
+  photo?: (number | null) | Media;
+  bio?: string | null;
+  contacts?: {
+    email?: string | null;
+    phone?: string | null;
+    instagram?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "profile_select".
+ */
+export interface ProfileSelect<T extends boolean = true> {
+  photo?: T;
+  bio?: T;
+  contacts?:
+    | T
+    | {
+        email?: T;
+        phone?: T;
+        instagram?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

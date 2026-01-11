@@ -9,6 +9,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Paintings } from './collections/Paintings'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { Profile } from './globals/Profile'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,6 +23,7 @@ export default buildConfig({
   },
   // Обязательно регистрируем коллекции
   collections: [Users, Media, Paintings],
+  globals: [Profile],
   plugins: [
     s3Storage({
       collections: {

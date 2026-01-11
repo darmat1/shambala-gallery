@@ -30,5 +30,39 @@ export const Paintings: CollectionConfig = {
       type: 'number',
       label: 'Цена ($)',
     },
+    {
+      name: 'medium',
+      type: 'text',
+      label: 'Материалы (например: Холст, масло)',
+    },
+    {
+      name: 'dimensions',
+      type: 'text',
+      label: 'Размер (например: 50x70 см)',
+    },
+    {
+      name: 'description',
+      type: 'textarea',
+      label: 'Описание картины',
+    },
+    {
+      name: 'buyLink',
+      type: 'text',
+      label: 'Ссылка на Saatchi Art (для кнопки Купить)',
+    },
+    {
+      name: 'gallery',
+      type: 'array',
+      label: 'Дополнительные фото (фрагменты, свет)',
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media', // Ссылаемся на коллекцию Media
+          required: true,
+          label: 'Фото',
+        },
+      ],
+    },
   ],
 }
